@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
-const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 const finalPrice = (precio, descuento) => Math.round(precio - (precio * (descuento / 100)));
@@ -67,7 +67,12 @@ const controller = {
 
 	// Delete - Delete one product from DB
 	destroy: (req, res) => {
-		// Do the magic
+		products = products.filter(product=>product.id !== parseInt(req.params.id));
+
+		fs.writeFileSync(productsFilePath, JSON.stringify(products, null, 2))
+
+		res.redirect("/products")
+		 
 	}
 };
 
