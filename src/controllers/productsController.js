@@ -11,7 +11,7 @@ const controller = {
 	// Root - Show all products
 	index: (req, res) => {
 
-		res.render("products",)
+		res.render("products", { products, toThousand, finalPrice })
 	},
 
 	// Detail - Detail from one product
