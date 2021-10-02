@@ -15,7 +15,12 @@ const controller = {
 		res.render("index", {productosEnOferta, productosVistos, toThousand, finalPrice})
 	},
 	search: (req, res) => {
-		res.render("results")
+		const search = req.query.keywords.trim()
+		if(search !== ""){
+			const resultado = products.filter(product=>product.name.toLowerCase().includes(search.toLowerCase()));
+			res.render("results", {resultado})
+		}
+		
 	},
 };
 
