@@ -5,17 +5,20 @@ const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
 const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const finalPrice = (precio, descuento)=> Math.round(precio - (precio*(descuento/100)));
 
 const controller = {
 	// Root - Show all products
 	index: (req, res) => {
 		
-		res.render("products", {})
+		res.render("products", )
 	},
 
 	// Detail - Detail from one product
 	detail: (req, res) => {
-		res.render("detail")
+		const {id} = req.params
+		let product = products.find(product=> product.id === parseInt(id))
+		res.render("detail", {product, toThousand, finalPrice})
 	},
 
 	// Create - Form to create
