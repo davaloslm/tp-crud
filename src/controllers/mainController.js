@@ -18,7 +18,9 @@ const controller = {
 		const search = req.query.keywords.trim()
 		if(search !== ""){
 			const resultado = products.filter(product=>product.name.toLowerCase().includes(search.toLowerCase()));
-			res.render("results", {resultado})
+			res.render("results", {resultado, toThousand, finalPrice, search})
+		}else{
+			res.redirect("/")
 		}
 		
 	},
